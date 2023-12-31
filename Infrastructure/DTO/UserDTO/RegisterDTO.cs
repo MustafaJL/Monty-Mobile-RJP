@@ -1,16 +1,15 @@
-﻿using Domain.Entities.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Infrastructure.DTO.UserDTO
 {
-    public class User : BaseEntity
+    public class RegisterDTO
     {
-        [MaxLength(255)]
+        [MaxLength(255), Required]
         public string FirstName { get; set; }
         [MaxLength(255)]
         public string? LastName { get; set; }
@@ -18,9 +17,8 @@ namespace Domain.Entities
         public string Username { get; set; }
         [MaxLength(255)]
         public string Email { get; set; }
+        [Required]
         public string PhoneNumber { get; set; }
-        public string Salt { get; set; }
         public string Password { get; set; }
-        public bool isAdmin { get; set; } = false;
     }
 }
