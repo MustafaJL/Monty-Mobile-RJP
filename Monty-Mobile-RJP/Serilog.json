@@ -1,0 +1,17 @@
+﻿{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.PostgreSQL" ],
+    "MinimumLevel": "error",
+    "WriteTo": [
+      {
+        "Name": "PostgreSQL",
+        "Args": {
+          // change server name
+          "connectionString": "Host=localhost;Port=5432;Database=Monty-RJP;Username=postgres;Password=P@$$w0rd;",
+          "tableName": "Logs",
+          "autoCreateSqlTable": true
+        }
+      }
+    ]
+  }
+}
