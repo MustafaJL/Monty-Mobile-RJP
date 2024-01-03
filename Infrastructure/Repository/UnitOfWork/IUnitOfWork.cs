@@ -11,7 +11,6 @@ namespace Infrastructure.Repository.UnitOfWork
     {
         IUserRepository UserRepository { get; }
         ISubscriptionRepository SubscriptionRepository { get; }
-        ISubscriptionTypeRepository SubscriptionTypeRepository { get; }
         IMobileDataPlanRepository MobileDataPlanRepository { get; }
         int Save();
     }

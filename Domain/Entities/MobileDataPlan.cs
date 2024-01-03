@@ -14,5 +14,6 @@ namespace Domain.Entities
         public string Name { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; }
+        public decimal PricePerMonth { get; set; }
     }
 }

@@ -40,7 +40,10 @@ builder.Services.AddEndpointsApiExplorer();
 // Add new services to the container
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("MontyRJP"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MontyRJP"), builder =>
+    {
+        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+    });
 });
 
 // add repo pattern
@@ -82,14 +85,13 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

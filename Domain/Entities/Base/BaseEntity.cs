@@ -11,7 +11,7 @@ namespace Domain.Entities.Base
     {
         [Key]
         public long Id { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(2);
         public DateTime? ModifiedDate { get; set; }
     }
 }

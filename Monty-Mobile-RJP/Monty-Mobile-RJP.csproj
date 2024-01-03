@@ -5,11 +5,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Monty_Mobile_RJP</RootNamespace>
+    <UserSecretsId>dc3e2aed-f79f-4178-b3c2-b4e43355bd60</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.PostgreSQL" Version="2.3.0" />
 	<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />

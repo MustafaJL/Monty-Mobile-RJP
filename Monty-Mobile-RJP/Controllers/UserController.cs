@@ -1,7 +1,13 @@
-﻿using Domain.Entities;
+﻿using Application.Commands;
+using Domain.Entities;
+using Domain.Enums;
+using Infrastructure.DTO.Base;
+using Infrastructure.DTO.UserDTO;
 using Infrastructure.Repository.UnitOfWork;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Monty_Mobile_RJP.Controllers
 {
@@ -9,19 +15,40 @@ namespace Monty_Mobile_RJP.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<UserController> logger;
-        private readonly IUnitOfWork unitOfWork;
-        public UserController(ILogger<UserController> logger, IUnitOfWork unitOfWork)
+        private readonly IMediator _mediator;
+        private readonly IConfiguration _configuration;
+
+        public UserController(ILogger<UserController> logger, IMediator mediator, IConfiguration configuration)
         {
-            this.logger = logger;
-            this.unitOfWork = unitOfWork;
+            _mediator = mediator;
+            _configuration = configuration;
         }
-        [HttpGet]
-        public async Task<IEnumerable
-            <SubscriptionType>> Index()
+
+
+        [HttpPost,Route("Register")]
+        public async Task<BaseResponseDTO<string>> Register(RegisterDTO user)
         {
-              
-              return await this.unitOfWork.SubscriptionTypeRepository.GetAll();
+            BaseResponseDTO<string> response = new();
+            RegisterCommand command = new(user);
+            response = await _mediator.Send(command);
+            return response;
+        }
+
+        [HttpPost,Route("Login")]
+        public async Task<BaseResponseDTO<string>> Login(LoginDTO model)
+        {
+            BaseResponseDTO<string> response = new();
+            
+            var secretKey = _configuration.GetSection("AppSettings:Token").Value;
+            LoginCommand loginCommand = new(model, secretKey);
+            response = await _mediator.Send(loginCommand);
+            return response;
+        }
+
+        [HttpGet]
+        public string Get()
+        {
+            return "Hello FROM Docker";
         }
     }
 }

@@ -10,5 +10,6 @@ namespace Infrastructure.Repository.IRepository
 {
     public interface IUserRepository : IRepository<User>
     {
+        public Task<User> GetUserByUsername(string userName);
     }
 }

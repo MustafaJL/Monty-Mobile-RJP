@@ -9,12 +9,11 @@ namespace Domain.Entities
 {
     public class Subscription : BaseEntity
     {
-        public long UsertId { get; set; }
+        public long UserId { get; set; }
         public User User { get; set; }
         public long MobileDataPlanId { get; set; }
         public MobileDataPlan MobileDataPlan { get; set; }
-        public long SubscriptionTypeId { get; set; }
-        public SubscriptionType SubscriptionType { get; set; }
+        public decimal Cost { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }

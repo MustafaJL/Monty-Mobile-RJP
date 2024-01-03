@@ -12,20 +12,18 @@ namespace Infrastructure.Repository.UnitOfWork
     {
         public IUserRepository UserRepository { get; }
         public ISubscriptionRepository SubscriptionRepository { get; }
-        public ISubscriptionTypeRepository SubscriptionTypeRepository { get; }
         public IMobileDataPlanRepository MobileDataPlanRepository { get; }
 
         private readonly ApplicationDbContext _context;
 
         public UnitOfWork(ApplicationDbContext dbContext, IUserRepository UserRepository,
-            ISubscriptionRepository SubscriptionRepository, ISubscriptionTypeRepository SubscriptionTypeRepository,
+            ISubscriptionRepository SubscriptionRepository,
             IMobileDataPlanRepository MobileDataPlanRepository
             )
         {
             _context = dbContext;
             this.UserRepository = UserRepository;
             this.SubscriptionRepository = SubscriptionRepository;
-            this.SubscriptionTypeRepository = SubscriptionTypeRepository;
             this.MobileDataPlanRepository = MobileDataPlanRepository;
         }
 

@@ -19,6 +19,7 @@ namespace Infrastructure.Services
             List<Claim> claims = new List<Claim>
             {
                 new Claim("email", user.Email),
+                new Claim("phoneNumber", user.PhoneNumber),
                 new Claim("userId", user.Id.ToString()),
                 new Claim("role", isAdmin ? "Admin" : "User"),
             };
@@ -28,11 +29,11 @@ namespace Infrastructure.Services
                 .GetBytes(secretKey)
                 );
 
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: rememberMe ? DateTime.UtcNow.AddHours(2).AddDays(30) : DateTime.UtcNow.AddHours(2).AddMinutes(1),
+                expires: rememberMe ? DateTime.UtcNow.AddHours(2).AddDays(30) : DateTime.UtcNow.AddHours(2).AddMinutes(30),
                 signingCredentials: cred
                 );
 
