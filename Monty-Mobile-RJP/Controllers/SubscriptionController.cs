@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Queries;
 using Domain.Entities;
 using Infrastructure.DTO.Base;
 using Infrastructure.DTO.SubscriptionDTO;
@@ -26,6 +27,15 @@ namespace Monty_Mobile_RJP.Controllers
             BaseResponseDTO<string> response = new();
             SubscripeToMobileDataPlanCommand command = new(model,Request);
             response = await _mediator.Send(command);
+            return response;
+        }
+
+        [HttpGet,Route("GetAllSubscriptions"),Authorize(Roles = "User")]
+        public async Task<BaseResponseDTO<List<GetAllSubscriptionsDTO>>> GetAllSubscriptions()
+        {
+            BaseResponseDTO<List<GetAllSubscriptionsDTO>> response = new();
+            GetAllSubscriptionsQuery getAllSubscriptionsQuery = new(Request);
+            response = await _mediator.Send(getAllSubscriptionsQuery);
             return response;
         }
     }
