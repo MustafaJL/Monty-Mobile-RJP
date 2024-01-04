@@ -44,8 +44,7 @@ namespace Application.CommandsHandler
                 }
                 else
                 {
-                    response.statusCode = Domain.Enums.StatusCode.BadRequest;
-                    response.errorMessage = "Username Invalid";
+                    throw new Exception("Username Invalid");
                 }
             }
             catch (Exception ex)

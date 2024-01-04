@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monty-Mobile-RJP", "Monty-Mobile-RJP\Monty-Mobile-RJP.csproj", "{9C9E8AC3-75B2-47F9-B064-8E3E15EB9ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monty-Mobile-RJP", "Monty-Mobile-RJP\Monty-Mobile-RJP.csproj", "{9C9E8AC3-75B2-47F9-B064-8E3E15EB9ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{F1A2B19B-2FC5-4D60-9011-161D8C663A4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{F1A2B19B-2FC5-4D60-9011-161D8C663A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{3A3D6B85-E47E-4FFA-AB6A-34BFCC6EC941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{3A3D6B85-E47E-4FFA-AB6A-34BFCC6EC941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{23A04ED2-BF71-4667-9FFA-C888DA34D9BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{23A04ED2-BF71-4667-9FFA-C888DA34D9BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

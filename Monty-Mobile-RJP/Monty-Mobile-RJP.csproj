@@ -7,6 +7,7 @@
     <RootNamespace>Monty_Mobile_RJP</RootNamespace>
     <UserSecretsId>dc3e2aed-f79f-4178-b3c2-b4e43355bd60</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +15,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0" />
-    <PackageReference Include="Serilog.Sinks.PostgreSQL" Version="2.3.0" />
-	<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
-	<PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
+	<PackageReference Include="Serilog" Version="3.1.1" />
+	<PackageReference Include="Serilog.AspNetCore" Version="6.0.0" />
+	<PackageReference Include="Serilog.Extensions.Logging" Version="6.0.0" />
+	<PackageReference Include="Serilog.Sinks.Postgresql.Alternative" Version="3.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.12" />
   </ItemGroup>

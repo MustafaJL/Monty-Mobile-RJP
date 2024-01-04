@@ -45,10 +45,5 @@ namespace Monty_Mobile_RJP.Controllers
             return response;
         }
 
-        [HttpGet]
-        public string Get()
-        {
-            return "Hello FROM Docker";
-        }
     }
 }

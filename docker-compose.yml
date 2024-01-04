@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  monty-mobile-rjp:
+    image: ${DOCKER_REGISTRY-}montymobilerjp
+    build:
+      context: .
+      dockerfile: Monty-Mobile-RJP/Dockerfile

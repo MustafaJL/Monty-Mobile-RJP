@@ -4,24 +4,41 @@ using Infrastructure.Data;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NpgsqlTypes;
 using Serilog;
+using Serilog.Sinks.PostgreSQL;
+using Serilog.Sinks.PostgreSQL.ColumnWriters;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+int RetryLimit = Convert.ToInt32(builder.Configuration.GetSection("RetryMechanism:RetryLimit").Value);
+double TimeSpanInSeconds = Convert.ToInt64(builder.Configuration.GetSection("RetryMechanism:TimeSpanInSeconds").Value);
+string connectionString = builder.Configuration.GetConnectionString("MontyRJP");
 
-// Configure Serilog
-var configuration = new ConfigurationBuilder()
-            .AddJsonFile("Serilog.json")
-            .Build();
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(configuration)
+IDictionary<string, ColumnWriterBase> columnWriters = new Dictionary<string, ColumnWriterBase>
+{
+    { "message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
+    { "message_template", new MessageTemplateColumnWriter(NpgsqlDbType.Text) },
+    { "level", new LevelColumnWriter(true, NpgsqlDbType.Varchar) },
+    { "raise_date", new TimestampColumnWriter(NpgsqlDbType.TimestampTz) },
+    { "exception", new ExceptionColumnWriter(NpgsqlDbType.Text) },
+    { "properties", new LogEventSerializedColumnWriter(NpgsqlDbType.Jsonb) },
+    { "props_test", new PropertiesColumnWriter(NpgsqlDbType.Jsonb) },
+    { "machine_name", new SinglePropertyColumnWriter("MachineName", PropertyWriteMethod.ToString, NpgsqlDbType.Text, "l") }
+};
+
+var logger = new LoggerConfiguration()
+    .WriteTo.PostgreSQL(connectionString, "Logs", columnWriters,needAutoCreateTable: true)
+    .MinimumLevel.Error()
     .CreateLogger();
 
-builder.Host.UseSerilog();
+builder.Services.AddLogging(x => x.AddSerilog(logger));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "cors", builder =>
@@ -34,15 +51,15 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 // Add new services to the container
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("MontyRJP"), builder =>
     {
-        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+        builder.EnableRetryOnFailure(RetryLimit, TimeSpan.FromSeconds(TimeSpanInSeconds), null);
     });
 });
 

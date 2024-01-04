@@ -1,0 +1,40 @@
+version: '3.4'
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+      monty-rjp-app:
+        image: montymobilerjp
+        depends_on:
+          - "app-db"
+        container_name: app-services
+        ports:
+          - "8088:80"
+        build:
+           context: .
+           dockerfile: Dockerfile
+        environment:
+            - ConnectionStrings__MontyRJP=User ID=postgres;Password=P@$$w0rd;Server=app_db;Port=5432;Database=monty-rjp;IntegratedSecurity=true;Pooling=true;
+            - ASPNETCORE_URLS=http://+:80
+        networks:
+          - dev
+
+      app-db:
+        image: postgres:latest
+        container_name: app_db
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=P@$$w0rd
+          - POSTGRES_DB=monty-rjp
+        ports:
+          - "5432:54321" 
+        restart: always
+        volumes:
+           - app_data:/var/lib/postgresql/data
+        networks:
+           - dev
+volumes:
+  app_data:     
+        
